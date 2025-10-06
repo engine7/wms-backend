@@ -1,0 +1,87 @@
+# =========================
+# 기본 IDE / OS 관련
+# =========================
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+
+# =========================
+# Maven / Gradle
+# =========================
+target/
+build/
+out/
+!src/**/build/
+
+# =========================
+# 로그 / 임시파일
+# =========================
+logs/
+*.log
+*.out
+*.tmp
+*.bak
+
+# =========================
+# Spring Boot
+# =========================
+# Spring Boot 패키징 결과물 (jar, war)
+*.jar
+*.war
+
+# =========================
+# 전자정부 프레임워크 관련
+# =========================
+# (배포용 리소스, 임시파일)
+.egovframe/
+.egov/
+.egovdata/
+**/egovProps/
+**/egovframework/com/cmm/config/EgovConfigApp.properties
+**/egovframework/com/cmm/config/EgovConfigGlobals.properties
+**/egovframework/com/cmm/config/EgovConfigDatasource.properties
+
+# =========================
+# 환경별 설정파일 (.properties, .yml)
+# =========================
+application-local.yml
+application-local.properties
+application-dev.yml
+application-dev.properties
+application-test.yml
+application-test.properties
+*.env
+
+# =========================
+# 데이터베이스 / H2 / 기타
+# =========================
+*.db
+*.h2.db
+*.mv.db
+*.trace.db
+*.sql
+data/
+
+# =========================
+# OS / Tool-specific
+# =========================
+.envrc
+*.class
+*.orig
+*.rej
+*.swo
+*.un~
+*.patch
+
+# =========================
+# IntelliJ build cache
+# =========================
+.gradle/
+.mvn/
+
+/backend
