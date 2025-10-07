@@ -3,14 +3,16 @@ package egovframework.let.wms.inventory.service.impl;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
+import org.springframework.stereotype.Service;
+
 import egovframework.let.wms.inventory.service.InventoryService;
 import egovframework.let.wms.inventory.service.InventoryVO;
 import egovframework.let.wms.inventory.service.UserDefaultVO;
-
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
+import egovframework.let.wms.table.entity.WmtCstStrg;
+import egovframework.let.wms.table.service.WmtCstStrgService;
 
 /**
  * 일반회원관리에 관한비지니스클래스를 정의한다.
@@ -34,6 +36,9 @@ public class InventoryServiceImpl extends EgovAbstractServiceImpl implements Inv
 
 	@Resource(name="inventoryDAO")
 	private InventoryDAO inventoryDAO;
+	
+	@Resource(name = "wmtCstStrgService")
+    private WmtCstStrgService wmtCstStrgService;
 
 	/* LIST (COUNT) */
 	
@@ -59,7 +64,11 @@ public class InventoryServiceImpl extends EgovAbstractServiceImpl implements Inv
 	@Override
 	public int insertInventoryMap(Map<String, Object> params) throws Exception  {	/* (Map) */
 
-		int result = inventoryDAO.insertInventoryMap(params);
+//		int result = inventoryDAO.insertInventoryMap(params);
+		
+		int result = 1;
+		WmtCstStrg wmtCstStrg = wmtCstStrgService.insert(params);
+		
 		return result;
 	}
 	

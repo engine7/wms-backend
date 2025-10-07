@@ -20,8 +20,8 @@ public class WmtCstStrgService {
         this.repository = repository;
     }
 
-    @Transactional("transactionManager")
-    public WmtCstStrg insert(Map<String, Object> param) {
+//    @Transactional("transactionManager")
+    public WmtCstStrg insert(Map<String, Object> params) {
 //    	// Map → Entity 변환
 //    	ObjectMapper objectMapper = new ObjectMapper();
 //        WmtCstStrg entity = objectMapper.convertValue(param, WmtCstStrg.class);
@@ -35,7 +35,7 @@ public class WmtCstStrgService {
 //        if (entity.getInsUserId() == null) entity.setInsUserId("admin");
 //        if (entity.getUpdUserId() == null) entity.setUpdUserId("admin");
     	
-        return repository.save(param);
+        return repository.save(params);
     }
 
     public WmtCstStrg select(String whCd, String lotNo, String cellNo) {

@@ -50,7 +50,7 @@ public class WmtCstStrgController {
             @ApiResponse(responseCode = "400", description = "입력값 오류")
     })
     @PostMapping("/insert")
-    public WmtCstStrg insertInventory(@RequestBody Map<String, Object> param) {
+    public WmtCstStrg insertInventory(@RequestBody Map<String, Object> params) {
 
 //        WmtCstStrg entity = new WmtCstStrg();
 //        entity.setWhCd((String) param.get("whCd"));
@@ -66,6 +66,6 @@ public class WmtCstStrgController {
 //        entity.setInsDatetime(now);
 //        entity.setUpdDatetime(now);
 
-        return wmtCstStrgService.insert(param);
+        return wmtCstStrgService.insert(params);
     }
 }
