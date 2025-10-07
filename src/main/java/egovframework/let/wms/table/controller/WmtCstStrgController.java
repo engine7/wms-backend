@@ -52,20 +52,20 @@ public class WmtCstStrgController {
     @PostMapping("/insert")
     public WmtCstStrg insertInventory(@RequestBody Map<String, Object> param) {
 
-        WmtCstStrg entity = new WmtCstStrg();
-        entity.setWhCd((String) param.get("whCd"));
-        entity.setLotNo((String) param.get("lotNo"));
-        entity.setCellNo((String) param.get("cellNo"));
-        entity.setInvnQty(new BigDecimal(param.getOrDefault("invnQty", "0").toString()));
-        entity.setAvlbQty(new BigDecimal(param.getOrDefault("avlbQty", "0").toString()));
-        entity.setAllocQty(new BigDecimal(param.getOrDefault("allocQty", "0").toString()));
-        entity.setHldQty(new BigDecimal(param.getOrDefault("hldQty", "0").toString()));
-        entity.setInsUserId("admin"); // TODO: 실제 로그인 사용자
-        entity.setUpdUserId("admin"); // TODO: 실제 로그인 사용자
-        String now = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
-        entity.setInsDatetime(now);
-        entity.setUpdDatetime(now);
+//        WmtCstStrg entity = new WmtCstStrg();
+//        entity.setWhCd((String) param.get("whCd"));
+//        entity.setLotNo((String) param.get("lotNo"));
+//        entity.setCellNo((String) param.get("cellNo"));
+//        entity.setInvnQty(new BigDecimal(param.getOrDefault("invnQty", "0").toString()));
+//        entity.setAvlbQty(new BigDecimal(param.getOrDefault("avlbQty", "0").toString()));
+//        entity.setAllocQty(new BigDecimal(param.getOrDefault("allocQty", "0").toString()));
+//        entity.setHldQty(new BigDecimal(param.getOrDefault("hldQty", "0").toString()));
+//        entity.setInsUserId("admin"); // TODO: 실제 로그인 사용자
+//        entity.setUpdUserId("admin"); // TODO: 실제 로그인 사용자
+//        String now = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+//        entity.setInsDatetime(now);
+//        entity.setUpdDatetime(now);
 
-        return wmtCstStrgService.insert(entity);
+        return wmtCstStrgService.insert(param);
     }
 }
