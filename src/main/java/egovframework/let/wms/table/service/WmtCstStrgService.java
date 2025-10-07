@@ -22,20 +22,20 @@ public class WmtCstStrgService {
 
     @Transactional("transactionManager")
     public WmtCstStrg insert(Map<String, Object> param) {
-    	// Map → Entity 변환
-    	ObjectMapper objectMapper = new ObjectMapper();
-        WmtCstStrg entity = objectMapper.convertValue(param, WmtCstStrg.class);
-
-        // 자동으로 생성일/수정일 넣기
-        String now = java.time.LocalDateTime.now().format(java.time.format.DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
-        entity.setInsDatetime(now);
-        entity.setUpdDatetime(now);
-
-        // 기본 사용자
-        if (entity.getInsUserId() == null) entity.setInsUserId("admin");
-        if (entity.getUpdUserId() == null) entity.setUpdUserId("admin");
+//    	// Map → Entity 변환
+//    	ObjectMapper objectMapper = new ObjectMapper();
+//        WmtCstStrg entity = objectMapper.convertValue(param, WmtCstStrg.class);
+//
+//        // 자동으로 생성일/수정일 넣기
+//        String now = java.time.LocalDateTime.now().format(java.time.format.DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+//        entity.setInsDatetime(now);
+//        entity.setUpdDatetime(now);
+//
+//        // 기본 사용자
+//        if (entity.getInsUserId() == null) entity.setInsUserId("admin");
+//        if (entity.getUpdUserId() == null) entity.setUpdUserId("admin");
     	
-        return repository.save(entity);
+        return repository.save(param);
     }
 
     public WmtCstStrg select(String whCd, String lotNo, String cellNo) {
