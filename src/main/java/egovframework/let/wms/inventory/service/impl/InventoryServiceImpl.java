@@ -69,4 +69,15 @@ public class InventoryServiceImpl extends EgovAbstractServiceImpl implements Inv
 	public void deleteInventory(InventoryVO inventoryVO)  {
 		inventoryDAO.deleteInventory(inventoryVO);
 	}
+	
+	/**
+	 * 입력한 사용자아이디의 중복여부를 체크하여 사용가능여부를 확인
+	 * @param checkId 중복여부 확인대상 아이디
+	 * @return 사용가능여부(아이디 사용회수 int)
+	 * @throws Exception
+	 */
+	@Override
+	public int checkIdDplct(InventoryVO inventoryVO) {
+		return inventoryDAO.checkIdDplct(inventoryVO);
+	}
 }

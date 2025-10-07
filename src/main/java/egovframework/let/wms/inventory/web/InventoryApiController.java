@@ -368,4 +368,58 @@ public class InventoryApiController {
 	
 		return resultVO;
 	}
+	
+	/**
+	 * 사용자아이디의 중복여부를 체크하여 사용가능여부를 확인
+	 * @param commandMap 파라메터전달용 commandMap
+	 * @return resultVO
+	 * @throws Exception
+	 */
+	@Operation(
+			summary = "사용자아이디의 중복여부 체크처리",
+			description = "사용자아이디의 중복여부 체크처리",
+			tags = {"InventoryApiController"}
+	)
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "조회 성공"),
+			@ApiResponse(responseCode = "403", description = "인가된 사용자가 아님")
+	})
+	@GetMapping("/etc/inventory_checkid/{whCd}/{lotNo}/{cellNo}")
+	public ResultVO checkIdDplct(@PathVariable("whCd") String whCd
+								, @PathVariable("lotNo") String lotNo
+								, @PathVariable("cellNo") String cellNo
+								) throws Exception {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		ResultVO resultVO = new ResultVO();
+		
+		whCd = new String(whCd.getBytes("ISO-8859-1"), "UTF-8");
+		lotNo = new String(lotNo.getBytes("ISO-8859-1"), "UTF-8");
+		cellNo = new String(cellNo.getBytes("ISO-8859-1"), "UTF-8");
+		
+		String checkId = whCd + ", " + lotNo + ", " + cellNo;
+
+		if ( (whCd == null || whCd.equals(""))
+				&& (lotNo == null || lotNo.equals(""))
+				&& (cellNo == null || cellNo.equals(""))
+			) {
+			resultVO.setResultCode(ResponseCode.INPUT_CHECK_ERROR.getCode());
+			resultVO.setResultMessage(ResponseCode.INPUT_CHECK_ERROR.getMessage());
+		}else {
+			
+			InventoryVO inventoryVO = new InventoryVO();
+			
+			inventoryVO.setWhCd(whCd);
+			inventoryVO.setLotNo(lotNo);
+			inventoryVO.setCellNo(cellNo);
+			
+			int inventoryCnt = inventoryService.checkIdDplct(inventoryVO);
+			resultMap.put("inventoryCnt", inventoryCnt);
+			resultMap.put("checkId", checkId);
+		
+			resultVO.setResultCode(ResponseCode.SUCCESS.getCode());
+			resultVO.setResultMessage(ResponseCode.SUCCESS.getMessage());
+			resultVO.setResult(resultMap);
+		}
+		return resultVO;
+	}
 }

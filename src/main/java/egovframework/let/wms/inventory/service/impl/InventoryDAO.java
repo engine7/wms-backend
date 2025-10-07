@@ -57,4 +57,13 @@ public class InventoryDAO extends EgovAbstractMapper{
     public void deleteInventory(InventoryVO inventoryVO){
         delete("inventoryDAO.deleteInventory", inventoryVO);
     }
+    
+    /**
+     * 입력한 사용자아이디의 중복여부를 체크하여 사용가능여부를 확인
+     * @param checkId 중복체크대상 아이디
+     * @return int 사용가능여부(아이디 사용회수 )
+     */
+    public int checkIdDplct(InventoryVO inventoryVO){
+        return (Integer)selectOne("inventoryDAO.checkIdDplct", inventoryVO);
+    }
 }

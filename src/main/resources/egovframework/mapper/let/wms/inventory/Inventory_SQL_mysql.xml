@@ -112,10 +112,10 @@
                 #{whCd}		
 				, #{lotNo}      
 				, #{cellNo}     
-				, #{invnQty}    
-				, #{avlbQty}    
-				, #{allocQty}   
-				, #{hldQty}     
+				, IFNULL (NULLIF(#{invnQty},''), 0)    
+				, IFNULL (NULLIF(#{avlbQty},''), 0)
+				, IFNULL (NULLIF(#{allocQty},''), 0)   
+				, IFNULL (NULLIF(#{hldQty}, ''), 0)     
 				, 'sklee'  
 				, DATE_FORMAT(NOW(), '%Y%m%d%H%i%s')
 				, 'sklee'  
@@ -170,5 +170,18 @@
            AND	LOT_NO = #{lotNo}     
            AND	CELL_NO = #{cellNo}
     </delete>
+    
+    <select id="checkIdDplct" resultType="int">
+    
+    	/* checkIdDplct */
+    	
+    	SELECT	COUNT(1) usedCnt
+    	  FROM	WMT_CST_STRG
+    	 WHERE	1 = 1
+           AND	WH_CD = #{whCd}	
+           AND	LOT_NO = #{lotNo}     
+           AND	CELL_NO = #{cellNo}
+    
+    </select>
     
 </mapper>
