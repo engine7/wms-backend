@@ -1,12 +1,12 @@
-package egovframework.let.wms.inventory.service.impl;
+package egovframework.let.wms.component.inventory.service.impl;
 
 import java.util.List;
 import java.util.Map;
 
 import org.egovframe.rte.psl.dataaccess.EgovAbstractMapper;
 
-import egovframework.let.wms.inventory.service.InventoryVO;
-import egovframework.let.wms.inventory.service.UserDefaultVO;
+import egovframework.let.wms.component.inventory.service.InventoryVO;
+import egovframework.let.wms.component.inventory.service.UserDefaultVO;
 
 import org.springframework.stereotype.Repository;
 

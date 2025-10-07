@@ -3,7 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="inventoryDAO">
 	<!-- Hsql과 호환때문에 아래 resultMap 추가: KIK -->
-	<resultMap id="inventoryList" type="egovframework.let.wms.inventory.service.InventoryVO">
+	<resultMap id="inventoryList" type="egovframework.let.wms.component.inventory.service.InventoryVO">
 			<result property="whCd" column="whCd" />
 			<result property="lotNo" column="lotNo" />
 			<result property="cellNo" column="cellNo" />

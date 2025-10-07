@@ -1,4 +1,4 @@
-package egovframework.let.wms.inventory.service.impl;
+package egovframework.let.wms.component.inventory.service.impl;
 
 import java.util.List;
 import java.util.Map;
@@ -8,9 +8,9 @@ import javax.annotation.Resource;
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import org.springframework.stereotype.Service;
 
-import egovframework.let.wms.inventory.service.InventoryService;
-import egovframework.let.wms.inventory.service.InventoryVO;
-import egovframework.let.wms.inventory.service.UserDefaultVO;
+import egovframework.let.wms.component.inventory.service.InventoryService;
+import egovframework.let.wms.component.inventory.service.InventoryVO;
+import egovframework.let.wms.component.inventory.service.UserDefaultVO;
 import egovframework.let.wms.table.entity.WmtCstStrg;
 import egovframework.let.wms.table.service.WmtCstStrgService;
 

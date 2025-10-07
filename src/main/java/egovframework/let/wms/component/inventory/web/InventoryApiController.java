@@ -1,4 +1,4 @@
-package egovframework.let.wms.inventory.web;
+package egovframework.let.wms.component.inventory.web;
 
 import java.util.HashMap;
 import java.util.List;
@@ -31,8 +31,8 @@ import egovframework.com.cmm.ResponseCode;
 import egovframework.com.cmm.service.EgovCmmUseService;
 import egovframework.com.cmm.service.ResultVO;
 import egovframework.com.jwt.EgovJwtTokenUtil;
-import egovframework.let.wms.inventory.service.InventoryService;
-import egovframework.let.wms.inventory.service.InventoryVO;
+import egovframework.let.wms.component.inventory.service.InventoryService;
+import egovframework.let.wms.component.inventory.service.InventoryVO;
 import egovframework.let.uss.umt.service.UserDefaultVO;
 import egovframework.let.utl.fcc.service.EgovStringUtil;
 import io.swagger.v3.oas.annotations.Hidden;

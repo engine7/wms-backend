@@ -1,4 +1,4 @@
-package egovframework.let.wms.inventory.service;
+package egovframework.let.wms.component.inventory.service;
 
 import java.util.List;
 import java.util.Map;

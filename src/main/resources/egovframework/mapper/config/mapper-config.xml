@@ -19,7 +19,7 @@
 		<typeAlias  alias="userSearchVO" type = "egovframework.let.uss.umt.service.UserDefaultVO"/>
     	<typeAlias  alias="mberVO"       type = "egovframework.let.uss.umt.service.MberManageVO"/>
     	
-    	<typeAlias  alias="inventoryVO"       type = "egovframework.let.wms.inventory.service.InventoryVO"/>
+    	<typeAlias  alias="inventoryVO"       type = "egovframework.let.wms.component.inventory.service.InventoryVO"/>
 	</typeAliases>
     
 </configuration>
