@@ -1,6 +1,7 @@
 package egovframework.let.wms.inventory.service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 일반회원관리에 관한 인터페이스클래스를 정의한다.
@@ -30,6 +31,8 @@ public interface InventoryService {
 	/* CRUD */
 	
 	public int insertInventory(InventoryVO inventoryVO) throws Exception;
+	
+	public int insertInventoryMap(Map<String, Object> params) throws Exception;	/* (Map) */
 	
 	public InventoryVO selectInventory(InventoryVO inventoryVO) throws Exception;
 	

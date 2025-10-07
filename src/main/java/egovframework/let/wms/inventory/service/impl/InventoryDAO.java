@@ -1,6 +1,7 @@
 package egovframework.let.wms.inventory.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.egovframe.rte.psl.dataaccess.EgovAbstractMapper;
 
@@ -44,6 +45,10 @@ public class InventoryDAO extends EgovAbstractMapper{
     
     public int insertInventory(InventoryVO inventoryVO){
         return insert("inventoryDAO.insertInventory", inventoryVO);
+    }
+    
+    public int insertInventoryMap(Map<String, Object> params){	/* (Map) */
+        return insert("inventoryDAO.insertInventory", params);
     }
     
     public InventoryVO selectInventory(InventoryVO inventoryVO){

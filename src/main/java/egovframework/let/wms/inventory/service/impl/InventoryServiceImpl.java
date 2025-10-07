@@ -1,6 +1,7 @@
 package egovframework.let.wms.inventory.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import egovframework.let.wms.inventory.service.InventoryService;
@@ -52,6 +53,13 @@ public class InventoryServiceImpl extends EgovAbstractServiceImpl implements Inv
 	public int insertInventory(InventoryVO inventoryVO) throws Exception  {
 
 		int result = inventoryDAO.insertInventory(inventoryVO);
+		return result;
+	}
+	
+	@Override
+	public int insertInventoryMap(Map<String, Object> params) throws Exception  {	/* (Map) */
+
+		int result = inventoryDAO.insertInventoryMap(params);
 		return result;
 	}
 	
