@@ -85,3 +85,4 @@ data/
 .mvn/
 
 /backend
+*.log.gz
