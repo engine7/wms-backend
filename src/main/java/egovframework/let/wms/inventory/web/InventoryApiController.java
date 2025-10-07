@@ -190,6 +190,10 @@ public class InventoryApiController {
 		ComDefaultCodeVO vo = new ComDefaultCodeVO();
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		
+		//그룹정보를 조회 - GROUP_ID정보(스프링부트에서는 실제로 이 값만 사용한다.)
+		vo.setTableNm("LETTNORGNZTINFO");
+		resultMap.put("groupId_result", cmmUseService.selectGroupIdDetail(vo));
+		
 		ResultVO resultVO = new ResultVO();
 		resultVO.setResultCode(ResponseCode.SUCCESS.getCode());
 		resultVO.setResultMessage(ResponseCode.SUCCESS.getMessage());
