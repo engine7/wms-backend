@@ -52,7 +52,7 @@
 	    <if test="searchCondition == 1">AND
 	    	lotNo LIKE CONCAT('%' , #{searchKeyword}, '%')
 	    </if>
-	    <if test="searchCondition == 1">AND
+	    <if test="searchCondition == 2">AND
 	    	cellNo LIKE CONCAT('%' , #{searchKeyword}, '%')
 	    </if>
 	    ORDER BY whCd, lotNo, cellNo DESC
@@ -85,7 +85,7 @@
 	    <if test="searchCondition == 1">AND
 	    	lotNo LIKE CONCAT('%' , #{searchKeyword}, '%')
 	    </if>
-	    <if test="searchCondition == 1">AND
+	    <if test="searchCondition == 2">AND
 	    	cellNo LIKE CONCAT('%' , #{searchKeyword}, '%')
 	    </if>
     </select>

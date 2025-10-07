@@ -146,11 +146,14 @@ public class InventoryApiController {
 		int totCnt = inventoryService.selectInventoryListTotCnt(userSearchVO);
 		paginationInfo.setTotalRecordCount(totCnt);
 		
-		//재고 상태코드를 코드정보로부터 조회
+		//그룹정보를 조회 - GROUP_ID정보(스프링부트에서는 실제로 이 값만 사용한다.)
 		ComDefaultCodeVO vo = new ComDefaultCodeVO();
-		vo.setCodeId("COM013");
+		vo.setTableNm("LETTNORGNZTINFO");
 		
 		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("paginationInfo", paginationInfo);
+		resultMap.put("user", user);
+		resultMap.put("groupId_result", cmmUseService.selectGroupIdDetail(vo));
 		resultMap.put("resultList", resultList);
 
 		resultVO.setResultCode(ResponseCode.SUCCESS.getCode());
