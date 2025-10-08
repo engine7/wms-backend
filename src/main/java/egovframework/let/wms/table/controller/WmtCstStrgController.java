@@ -29,7 +29,8 @@ public class WmtCstStrgController {
         this.wmtCstStrgService = wmtCstStrgService;
     }
 
-    @Operation(summary = "재고 조회", description = "WH_CD, LOT_NO, CELL_NO로 재고 조회")
+    @Operation(summary = "재고 조회", description = "WH_CD, LOT_NO, CELL_NO로 재고 조회",
+            security = {@SecurityRequirement(name = "Authorization")})
     @GetMapping("/select/{whCd}/{lotNo}/{cellNo}")
     public WmtCstStrg selectInventory(
             @PathVariable String whCd,
