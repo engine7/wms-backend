@@ -31,7 +31,7 @@ public class WmtCstStrgRepositoryImpl implements WmtCstStrgRepositoryCustom {
         if (entity.getInsUserId() == null) entity.setInsUserId("admin");
         if (entity.getUpdUserId() == null) entity.setUpdUserId("admin");
 
-        em.persist(entity);
+        em.merge(entity);
         return entity;
     }
 }
