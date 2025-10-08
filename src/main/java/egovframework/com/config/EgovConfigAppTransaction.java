@@ -3,6 +3,7 @@ package egovframework.com.config;
 import java.util.Collections;
 import java.util.HashMap;
 
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.springframework.aop.Advisor;
@@ -12,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.interceptor.NameMatchTransactionAttributeSource;
 import org.springframework.transaction.interceptor.RollbackRuleAttribute;
@@ -42,24 +45,24 @@ public class EgovConfigAppTransaction {
 	@Autowired
 	DataSource dataSource;
 
-	@Bean
-	public DataSourceTransactionManager txManager() {
-		DataSourceTransactionManager dataSourceTransactionManager = new DataSourceTransactionManager();
-		dataSourceTransactionManager.setDataSource(dataSource);
-		return dataSourceTransactionManager;
-	}
+//	@Bean
+//	public DataSourceTransactionManager txManager() {
+//		DataSourceTransactionManager dataSourceTransactionManager = new DataSourceTransactionManager();
+//		dataSourceTransactionManager.setDataSource(dataSource);
+//		return dataSourceTransactionManager;
+//	}
 
 	// -------------------------------------------------------------
 	// TransactionAdvice 설정
 	// -------------------------------------------------------------
 
-	@Bean
-	public TransactionInterceptor txAdvice(DataSourceTransactionManager txManager) {
-		TransactionInterceptor txAdvice = new TransactionInterceptor();
-		txAdvice.setTransactionManager(txManager);
-		txAdvice.setTransactionAttributeSource(getNameMatchTransactionAttributeSource());
-		return txAdvice;
-	}
+//	@Bean
+//	public TransactionInterceptor txAdvice(DataSourceTransactionManager txManager) {
+//		TransactionInterceptor txAdvice = new TransactionInterceptor();
+//		txAdvice.setTransactionManager(txManager);
+//		txAdvice.setTransactionAttributeSource(getNameMatchTransactionAttributeSource());
+//		return txAdvice;
+//	}
 
 	private NameMatchTransactionAttributeSource getNameMatchTransactionAttributeSource() {
 		NameMatchTransactionAttributeSource txAttributeSource = new NameMatchTransactionAttributeSource();
@@ -82,11 +85,34 @@ public class EgovConfigAppTransaction {
 	// TransactionAdvisor 설정
 	// -------------------------------------------------------------
 
-	@Bean
-	public Advisor txAdvisor(DataSourceTransactionManager txManager) {
-		AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
-		pointcut.setExpression(
-			"execution(* egovframework.let..impl.*Impl.*(..)) or execution(* egovframework.com..*Impl.*(..))");
-		return new DefaultPointcutAdvisor(pointcut, txAdvice(txManager));
+//	@Bean
+//	public Advisor txAdvisor(DataSourceTransactionManager txManager) {
+//		AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
+//		pointcut.setExpression(
+//			"execution(* egovframework.let..impl.*Impl.*(..)) or execution(* egovframework.com..*Impl.*(..))");
+//		return new DefaultPointcutAdvisor(pointcut, txAdvice(txManager));
+//	}
+	
+	/** JPA */
+	
+	@Bean("transactionManager")
+	public PlatformTransactionManager jpaTransactionManager(EntityManagerFactory emf) {
+	    return new JpaTransactionManager(emf);
 	}
+
+	@Bean
+	public TransactionInterceptor jpaTxAdvice(PlatformTransactionManager jpaTxManager) {
+	    TransactionInterceptor txAdvice = new TransactionInterceptor();
+	    txAdvice.setTransactionManager(jpaTxManager);
+	    txAdvice.setTransactionAttributeSource(getNameMatchTransactionAttributeSource());
+	    return txAdvice;
+	}
+
+	@Bean
+	public Advisor jpaTxAdvisor(PlatformTransactionManager jpaTxManager) {
+	    AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
+	    pointcut.setExpression("execution(* egovframework.let..service..*(..))"); 
+	    return new DefaultPointcutAdvisor(pointcut, jpaTxAdvice(jpaTxManager));
+	}
+
 }

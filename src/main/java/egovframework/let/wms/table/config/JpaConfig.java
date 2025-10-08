@@ -8,12 +8,12 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 
-@Configuration
-@Primary
-public class JpaConfig {
-
-    @Bean
-    public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
-        return new JpaTransactionManager(emf);
-    }
-}
+//@Configuration
+//@Primary
+//public class JpaConfig {
+//
+//    @Bean
+//    public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
+//        return new JpaTransactionManager(emf);
+//    }
+//}
