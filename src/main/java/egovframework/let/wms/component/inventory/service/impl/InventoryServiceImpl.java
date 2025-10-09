@@ -48,6 +48,11 @@ public class InventoryServiceImpl extends EgovAbstractServiceImpl implements Inv
 	}
 	
 	@Override
+	public List<Map<String, Object>> selectInventoryMapList(UserDefaultVO userSearchVO) {
+		return inventoryDAO.selectInventoryMapList(userSearchVO);
+	}
+	
+	@Override
 	public int selectInventoryListTotCnt(UserDefaultVO userSearchVO) {
     	return inventoryDAO.selectInventoryListTotCnt(userSearchVO);
     }

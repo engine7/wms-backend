@@ -36,6 +36,11 @@ public class InventoryDAO extends EgovAbstractMapper{
 	public List<InventoryVO> selectInventoryList(UserDefaultVO userSearchVO){
         return selectList("inventoryDAO.selectInventoryList", userSearchVO);
     }
+    
+    @SuppressWarnings("unchecked")
+	public List<Map<String, Object>> selectInventoryMapList(UserDefaultVO userSearchVO){
+        return selectList("inventoryDAO.selectInventoryMapList", userSearchVO);
+    }
 
     public int selectInventoryListTotCnt(UserDefaultVO userSearchVO) {
         return selectOne("inventoryDAO.selectInventoryListTotCnt", userSearchVO);

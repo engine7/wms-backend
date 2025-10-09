@@ -162,6 +162,75 @@ public class InventoryApiController {
 
 		return resultVO;
 	}
+	
+	/**
+	 * 관리자단에서 재고목록을 조회한다. (pageing)
+	 * @param request
+	 * @return resultVO
+	 * @throws Exception
+	 */
+	@Operation(
+			summary = "관리자단에서 재고 목록조회화면 (맵)",
+			description = "관리자단에서 재고에 대한 목록을 조회",
+			security = {@SecurityRequirement(name = "Authorization")},
+			tags = {"InventoryMapApiController"}
+	)
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "조회 성공"),
+			@ApiResponse(responseCode = "403", description = "인가된 사용자가 아님")
+	})
+	@GetMapping(value = "/inventoryMap")
+	public ResultVO selectInventoryMapList(
+			@Parameter(
+					in = ParameterIn.QUERY,
+					schema = @Schema(type = "object",
+							additionalProperties = Schema.AdditionalPropertiesValue.TRUE, 
+							ref = "#/components/schemas/searchMap"),
+					style = ParameterStyle.FORM,
+					explode = Explode.TRUE
+			) @RequestParam Map<String, Object> commandMap, 
+			@Parameter(hidden = true) @AuthenticationPrincipal LoginVO user)
+		throws Exception {
+		ResultVO resultVO = new ResultVO();
+		InventoryVO userSearchVO = new InventoryVO();
+		userSearchVO.setSearchCondition((String)commandMap.get("searchCnd"));
+		userSearchVO.setSearchKeyword((String)commandMap.get("searchWrd"));
+		
+		/** EgovPropertyService */
+		userSearchVO.setPageUnit(propertiesService.getInt("Globals.pageUnit"));
+		userSearchVO.setPageSize(propertiesService.getInt("Globals.pageSize"));
+		
+		/** pageing */
+		PaginationInfo paginationInfo = new PaginationInfo();
+		paginationInfo.setCurrentPageNo(userSearchVO.getPageIndex());
+		paginationInfo.setRecordCountPerPage(userSearchVO.getPageUnit());
+		paginationInfo.setPageSize(userSearchVO.getPageSize());
+
+		userSearchVO.setFirstIndex(paginationInfo.getFirstRecordIndex());
+		userSearchVO.setLastIndex(paginationInfo.getLastRecordIndex());
+		userSearchVO.setRecordCountPerPage(paginationInfo.getRecordCountPerPage());
+		
+		List<Map<String, Object>> resultList = inventoryService.selectInventoryMapList(userSearchVO);
+		
+		int totCnt = inventoryService.selectInventoryListTotCnt(userSearchVO);
+		paginationInfo.setTotalRecordCount(totCnt);
+		
+		//그룹정보를 조회 - GROUP_ID정보(스프링부트에서는 실제로 이 값만 사용한다.)
+		ComDefaultCodeVO vo = new ComDefaultCodeVO();
+		vo.setTableNm("LETTNORGNZTINFO");
+		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("paginationInfo", paginationInfo);
+		resultMap.put("user", user);
+		resultMap.put("groupId_result", cmmUseService.selectGroupIdDetail(vo));
+		resultMap.put("resultList", resultList);
+
+		resultVO.setResultCode(ResponseCode.SUCCESS.getCode());
+		resultVO.setResultMessage(ResponseCode.SUCCESS.getMessage());
+		resultVO.setResult(resultMap);
+
+		return resultVO;
+	}
 
 	/* CUD (R) */
 	

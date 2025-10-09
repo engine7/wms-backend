@@ -26,6 +26,8 @@ public interface InventoryService {
 	
 	public List<InventoryVO> selectInventoryList(UserDefaultVO userSearchVO) throws Exception;
 	
+	public List<Map<String, Object>> selectInventoryMapList(UserDefaultVO userSearchVO) throws Exception;
+	
 	public int selectInventoryListTotCnt(UserDefaultVO userSearchVO) throws Exception;
 	
 	/* CRUD */

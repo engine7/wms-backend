@@ -3,6 +3,7 @@ package egovframework.com.config;
 import java.io.IOException;
 
 import javax.annotation.PostConstruct;
+import org.apache.ibatis.plugin.Interceptor;
 import javax.sql.DataSource;
 
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -18,6 +19,8 @@ import org.springframework.context.annotation.PropertySources;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.support.lob.DefaultLobHandler;
+
+import egovframework.com.cmm.interceptor.CamelCaseMapInterceptor;
 
 /**
  * @ClassName : EgovConfigAppMapper.java
@@ -64,7 +67,10 @@ public class EgovConfigAppMapper {
 	public SqlSessionFactoryBean sqlSession() {
 		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
 		sqlSessionFactoryBean.setDataSource(dataSource);
-
+		
+		// CamelCaseMapInterceptor 등록
+		sqlSessionFactoryBean.setPlugins(new Interceptor[]{ new CamelCaseMapInterceptor() });
+		
 		PathMatchingResourcePatternResolver pathMatchingResourcePatternResolver = new PathMatchingResourcePatternResolver();
 
 		sqlSessionFactoryBean.setConfigLocation(
