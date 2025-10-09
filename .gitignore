@@ -42,19 +42,19 @@ logs/
 .egov/
 .egovdata/
 **/egovProps/
-**/egovframework/com/cmm/config/EgovConfigApp.properties
-**/egovframework/com/cmm/config/EgovConfigGlobals.properties
-**/egovframework/com/cmm/config/EgovConfigDatasource.properties
+#**/egovframework/com/cmm/config/EgovConfigApp.properties
+#**/egovframework/com/cmm/config/EgovConfigGlobals.properties
+#**/egovframework/com/cmm/config/EgovConfigDatasource.properties
 
 # =========================
 # 환경별 설정파일 (.properties, .yml)
 # =========================
-application-local.yml
-application-local.properties
-application-dev.yml
-application-dev.properties
-application-test.yml
-application-test.properties
+#application-local.yml
+#application-local.properties
+#application-dev.yml
+#application-dev.properties
+#application-test.yml
+#application-test.properties
 *.env
 
 # =========================
@@ -64,7 +64,7 @@ application-test.properties
 *.h2.db
 *.mv.db
 *.trace.db
-*.sql
+#*.sql
 data/
 
 # =========================
