@@ -38,6 +38,8 @@ public interface InventoryService {
 	
 	public InventoryVO selectInventory(InventoryVO inventoryVO) throws Exception;
 	
+	public Map<String, Object> selectInventoryMap(Map<String, Object> params) throws Exception;	/* (Map) */
+	
 	public void updateInventory(InventoryVO inventoryVO) throws Exception;
 	
 	public void deleteInventory(InventoryVO inventoryVO) throws Exception;

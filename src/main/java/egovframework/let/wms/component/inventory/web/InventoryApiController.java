@@ -399,6 +399,54 @@ public class InventoryApiController {
 		
 		return resultVO;
 	}
+	
+	/**
+	 * 관리자단에서 재고정보 수정을 위해 재고정보를 상세조회한다.
+	 * @param uniqId 상세조회대상 재고아이디
+	 * @param userSearchVO 검색조건
+	 * @return resultVO
+	 * @throws Exception
+	 */
+//	@Hidden
+	@Operation(
+			summary = "관리자단에서 재고정보 수정용 상세조회화면",
+			description = "관리자단에서 재고정보 수정을 위해 재고정보를 상세조회",
+			security = {@SecurityRequirement(name = "Authorization")},
+			tags = {"InventoryMapApiController"}
+	)
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "조회 성공"),
+			@ApiResponse(responseCode = "403", description = "인가된 사용자가 아님")
+	})
+	@GetMapping("/inventoryMap/update/{whCd}/{lotNo}/{cellNo}")
+	public ResultVO updateInventoryMapView(@PathVariable("whCd") String whCd
+									, @PathVariable("lotNo") String lotNo
+									, @PathVariable("cellNo") String cellNo
+									, UserDefaultVO userSearchVO) throws Exception {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		ResultVO resultVO = new ResultVO();
+		ComDefaultCodeVO vo = new ComDefaultCodeVO();
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+		
+		params.put("whCd", whCd);
+		params.put("lotNo", lotNo);
+		params.put("cellNo", cellNo);
+		
+		resultMap.put("inventoryVO", inventoryService.selectInventoryMap(params));
+		
+		resultMap.put("userSearchVO", userSearchVO);
+		
+		//그룹정보를 조회 - GROUP_ID정보
+		vo.setTableNm("LETTNORGNZTINFO");
+		resultMap.put("groupId_result", cmmUseService.selectGroupIdDetail(vo));
+
+		resultVO.setResultCode(ResponseCode.SUCCESS.getCode());
+		resultVO.setResultMessage(ResponseCode.SUCCESS.getMessage());
+		resultVO.setResult(resultMap);
+		
+		return resultVO;
+	}
 
 	/**
 	 * 관리자단에서 재고수정 처리

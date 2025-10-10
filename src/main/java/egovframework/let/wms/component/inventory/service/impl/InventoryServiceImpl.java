@@ -8,6 +8,8 @@ import javax.annotation.Resource;
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import egovframework.let.wms.component.inventory.service.InventoryService;
 import egovframework.let.wms.component.inventory.service.InventoryVO;
 import egovframework.let.wms.component.inventory.service.UserDefaultVO;
@@ -39,7 +41,9 @@ public class InventoryServiceImpl extends EgovAbstractServiceImpl implements Inv
 	
 	@Resource(name = "wmtCstStrgService")
     private WmtCstStrgService wmtCstStrgService;
-
+	
+	private final ObjectMapper objectMapper = new ObjectMapper();
+	
 	/* LIST (COUNT) */
 	
 	@Override
@@ -80,6 +84,19 @@ public class InventoryServiceImpl extends EgovAbstractServiceImpl implements Inv
 	@Override
 	public InventoryVO selectInventory(InventoryVO inventoryVO) {
 		return inventoryDAO.selectInventory(inventoryVO);
+	}
+	
+	@Override
+	public Map<String, Object> selectInventoryMap(Map<String, Object> params) {		/* (Map) */
+		
+		String whCd = String.valueOf(params.get("whCd"));
+		String lotNo = String.valueOf(params.get("lotNo")); 
+		String cellNo = String.valueOf(params.get("cellNo"));
+		
+		WmtCstStrg wmtCstStrg = wmtCstStrgService.select(whCd, lotNo, cellNo);
+		Map<String, Object> resultMap = objectMapper.convertValue(wmtCstStrg, Map.class);
+		
+		return resultMap;
 	}
 	
 	@Override
