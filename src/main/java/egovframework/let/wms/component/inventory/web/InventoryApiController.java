@@ -526,6 +526,43 @@ public class InventoryApiController {
 	}
 	
 	/**
+	 * 관리자단에서 재고정보삭제.
+	 * @param checkedIdForDel 삭제대상 아이디 정보
+	 * @param userSearchVO 검색조건정보
+	 * @return resultVO
+	 * @throws Exception
+	 */
+	@Operation(
+			summary = "관리자단에서 재고 삭제처리",
+			description = "관리자단에서 재고 삭제처리",
+			security = {@SecurityRequirement(name = "Authorization")},
+			tags = {"InventoryMapApiController"}
+	)
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "삭제 성공"),
+			@ApiResponse(responseCode = "403", description = "인가된 사용자가 아님"),
+			@ApiResponse(responseCode = "900", description = "입력값 무결성 오류")
+	})
+	@DeleteMapping("/inventoryMap/delete")
+	public ResultVO deleteInventoryMap(@RequestBody Map<String, Object> params
+									, UserDefaultVO userSearchVO) throws Exception {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		ResultVO resultVO = new ResultVO();
+		
+		InventoryVO inventoryVO = new InventoryVO();
+		
+		inventoryService.deleteInventoryMap(params);
+		
+		//Exception 없이 진행시 삭제성공메시지
+		resultMap.put("resultMsg", "success.common.delete");
+		resultVO.setResultCode(ResponseCode.SUCCESS.getCode());
+		resultVO.setResultMessage(ResponseCode.SUCCESS.getMessage());
+		resultVO.setResult(resultMap);
+	
+		return resultVO;
+	}
+	
+	/**
 	 * 사용자아이디의 중복여부를 체크하여 사용가능여부를 확인
 	 * @param commandMap 파라메터전달용 commandMap
 	 * @return resultVO

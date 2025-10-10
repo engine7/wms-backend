@@ -37,6 +37,11 @@ public class WmtCstStrgService {
     	
         return repository.save(params);
     }
+    
+  public void delete(Map<String, Object> params) {
+  	
+      repository.delete(params);
+  }
 
     public WmtCstStrg select(String whCd, String lotNo, String cellNo) {
         return repository.findById(new WmtCstStrgId(whCd, lotNo, cellNo))

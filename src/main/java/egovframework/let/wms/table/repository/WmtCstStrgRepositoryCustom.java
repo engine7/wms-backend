@@ -6,5 +6,6 @@ import egovframework.let.wms.table.entity.WmtCstStrg;
 
 public interface WmtCstStrgRepositoryCustom {
     WmtCstStrg save(Map<String, Object> param);
+    void delete(Map<String, Object> params);
 }
 

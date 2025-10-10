@@ -92,6 +92,13 @@ public class InventoryServiceImpl extends EgovAbstractServiceImpl implements Inv
 		inventoryDAO.deleteInventory(inventoryVO);
 	}
 	
+	@Override
+	public void deleteInventoryMap(Map<String, Object> params)  {
+		
+		wmtCstStrgService.delete(params);
+		
+	}
+	
 	/**
 	 * 입력한 사용자아이디의 중복여부를 체크하여 사용가능여부를 확인
 	 * @param checkId 중복여부 확인대상 아이디

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import egovframework.let.wms.table.entity.WmtCstStrg;
+import egovframework.let.wms.table.entity.WmtCstStrgId;
 
 @Repository
 public class WmtCstStrgRepositoryImpl implements WmtCstStrgRepositoryCustom {
@@ -33,5 +34,20 @@ public class WmtCstStrgRepositoryImpl implements WmtCstStrgRepositoryCustom {
 
         em.merge(entity);
         return entity;
+    }
+    
+    @Override
+    public void delete(Map<String, Object> params) {
+    	
+    	String whCd = String.valueOf(params.get("whCd"));
+    	String lotNo = String.valueOf(params.get("lotNo"));
+    	String cellNo = String.valueOf(params.get("cellNo"));
+    	
+    	WmtCstStrgId wmtCstStrgId = new WmtCstStrgId(whCd, lotNo, cellNo);
+    	
+        WmtCstStrg entity = em.find(WmtCstStrg.class, wmtCstStrgId);
+        if (entity != null) {
+            em.remove(entity);
+        }
     }
 }
