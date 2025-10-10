@@ -440,6 +440,47 @@ public class InventoryApiController {
 		
 		return resultVO;
 	}
+	
+	/**
+	 * 관리자단에서 재고수정 처리
+	 * @param mberManageVO 재고수정정보
+	 * @param bindingResult 입력값검증용 bindingResult
+	 * @return resultVO
+	 * @throws Exception
+	 */
+	@Operation(
+			summary = "관리자단에서 재고 수정처리",
+			description = "관리자단에서 재고 수정처리",
+			security = {@SecurityRequirement(name = "Authorization")},
+			tags = {"InventoryMapApiController"}
+	)
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "등록 성공"),
+			@ApiResponse(responseCode = "403", description = "인가된 사용자가 아님"),
+			@ApiResponse(responseCode = "900", description = "입력값 무결성 오류")
+	})
+	@PutMapping("/inventoryMap/update")
+	public ResultVO updateInventoryMap(@RequestBody Map<String, Object> params, BindingResult bindingResult) throws Exception {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		ResultVO resultVO = new ResultVO();
+
+//		beanValidator.validate(inventoryVO, bindingResult);
+//		if (bindingResult.hasErrors()) {
+//			
+//			resultMap.put("resultMsg", "fail.common.insert");
+//			resultVO.setResultCode(ResponseCode.SAVE_ERROR.getCode());
+//			resultVO.setResultMessage(ResponseCode.SAVE_ERROR.getMessage());
+//		} else {
+			inventoryService.insertInventoryMap(params);	/* JPA */
+			//Exception 없이 진행시 수정성공메시지
+			resultMap.put("resultMsg", "success.common.update");
+			resultVO.setResultCode(ResponseCode.SUCCESS.getCode());
+			resultVO.setResultMessage(ResponseCode.SUCCESS.getMessage());
+//		}
+//		resultVO.setResult(resultMap);
+		
+		return resultVO;
+	}
 
 	/**
 	 * 관리자단에서 재고정보삭제.
