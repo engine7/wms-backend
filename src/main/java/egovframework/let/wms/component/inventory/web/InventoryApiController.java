@@ -378,12 +378,17 @@ public class InventoryApiController {
 									, UserDefaultVO userSearchVO) throws Exception {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		ResultVO resultVO = new ResultVO();
+		ComDefaultCodeVO vo = new ComDefaultCodeVO();
 		
 		InventoryVO inventoryVO = new InventoryVO();
 		
 		inventoryVO.setWhCd(whCd);
 		inventoryVO.setLotNo(lotNo);
 		inventoryVO.setCellNo(cellNo);
+		
+		//그룹정보를 조회 - GROUP_ID정보
+		vo.setTableNm("LETTNORGNZTINFO");
+		resultMap.put("groupId_result", cmmUseService.selectGroupIdDetail(vo));
 		
 		resultMap.put("inventoryVO", inventoryService.selectInventory(inventoryVO));
 		resultMap.put("userSearchVO", userSearchVO);
