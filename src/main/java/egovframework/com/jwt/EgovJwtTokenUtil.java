@@ -46,7 +46,7 @@ public class EgovJwtTokenUtil implements Serializable{
     //for retrieveing any information from token we will need the secret key
     public Claims getAllClaimsFromToken(String token) {
     	log.debug("===>>> secret = "+SECRET_KEY);
-        return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
+        return Jwts.parser().setSigningKey(SECRET_KEY).build().parseClaimsJws(token).getBody();
     }
 
     //generate token for user
