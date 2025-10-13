@@ -1,11 +1,9 @@
 package egovframework.let.wms.table.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import egovframework.let.wms.table.entity.WmtCstStrg;
 import egovframework.let.wms.table.entity.WmtCstStrgId;
@@ -46,6 +44,10 @@ public class WmtCstStrgService {
     public WmtCstStrg select(String whCd, String lotNo, String cellNo) {
         return repository.findById(new WmtCstStrgId(whCd, lotNo, cellNo))
                          .orElse(null);
+    }
+    
+    public List<WmtCstStrg> selectList() {
+        return repository.findAll();
     }
 }
 

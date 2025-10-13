@@ -1,8 +1,6 @@
 package egovframework.let.wms.table.controller;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,6 +36,13 @@ public class WmtCstStrgController {
             @PathVariable String cellNo
     ) {
         return wmtCstStrgService.select(whCd, lotNo, cellNo);
+    }
+    
+    @Operation(summary = "재고 리스트 조회", description = "CELL_NO로 재고 조회",
+            security = {@SecurityRequirement(name = "Authorization")})
+    @GetMapping("/selectList")
+    public List<WmtCstStrg> selectInventory() {
+        return wmtCstStrgService.selectList();
     }
     
     @Operation(
