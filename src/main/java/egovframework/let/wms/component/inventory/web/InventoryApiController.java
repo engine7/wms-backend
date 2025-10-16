@@ -196,6 +196,8 @@ public class InventoryApiController {
 		userSearchVO.setSearchCondition((String)commandMap.get("searchCnd"));
 		userSearchVO.setSearchKeyword((String)commandMap.get("searchWrd"));
 		
+		userSearchVO.setPageIndex(Integer.parseInt(String.valueOf(commandMap.get("pageIndex"))));
+		
 		/** EgovPropertyService */
 		userSearchVO.setPageUnit(propertiesService.getInt("Globals.pageUnit"));
 		userSearchVO.setPageSize(propertiesService.getInt("Globals.pageSize"));
