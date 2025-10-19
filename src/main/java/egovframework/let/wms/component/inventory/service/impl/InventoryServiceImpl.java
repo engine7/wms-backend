@@ -90,7 +90,15 @@ public class InventoryServiceImpl extends EgovAbstractServiceImpl implements Inv
 		
 		for (Map<String, Object> params : paramsList) {
 		
-			WmtCstStrg wmtCstStrg = wmtCstStrgService.insert(params);
+			String status = String.valueOf(params.get("status"));
+			
+			if ("I".equals(status) || "U".equals(status)) {
+				WmtCstStrg wmtCstStrg = wmtCstStrgService.insert(params);
+			} else if ("D".equals(status)) {
+				wmtCstStrgService.delete(params);
+			} else {
+				// Excepetion
+			}
 			
 		}
 		
