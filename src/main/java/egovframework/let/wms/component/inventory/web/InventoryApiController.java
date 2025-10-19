@@ -354,6 +354,47 @@ public class InventoryApiController {
 		
 		return resultVO;
 	}
+	
+	/**
+	 * 관리자단에서 재고등록처리
+	 * @param mberManageVO 재고등록정보
+	 * @param bindingResult 입력값검증용 bindingResult
+	 * @return resultVO
+	 * @throws Exception
+	 */
+	@Operation(
+			summary = "관리자단에서 재고 등록처리 (맵)",
+			description = "관리자단에서 재고 등록처리 (맵)",
+			security = {@SecurityRequirement(name = "Authorization")},
+			tags = {"InventoryMapApiController"}
+	)
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "등록 성공"),
+			@ApiResponse(responseCode = "403", description = "인가된 사용자가 아님"),
+			@ApiResponse(responseCode = "900", description = "입력값 무결성 오류")
+	})
+	@PostMapping("/inventoryMap/toast/insert")
+	public ResultVO insertInventoryMapToast(@RequestBody List<Map<String, Object>> paramsList, BindingResult bindingResult) throws Exception {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		ResultVO resultVO = new ResultVO();
+//		beanValidator.validate(inventoryVO, bindingResult);
+//		if (bindingResult.hasErrors()) {
+//			ComDefaultCodeVO vo = new ComDefaultCodeVO();
+//
+//			resultMap.put("resultMsg", "fail.common.insert");
+//			resultVO.setResultCode(ResponseCode.SAVE_ERROR.getCode());
+//			resultVO.setResultMessage(ResponseCode.SAVE_ERROR.getMessage());
+//		} else {
+			inventoryService.insertInventoryMapToast(paramsList);	/* JPA */
+			//Exception 없이 진행시 등록 성공메시지
+			resultMap.put("resultMsg", "success.common.insert");
+			resultVO.setResultCode(ResponseCode.SUCCESS.getCode());
+			resultVO.setResultMessage(ResponseCode.SUCCESS.getMessage());
+//		}
+//		resultVO.setResult(resultMap);
+		
+		return resultVO;
+	}
 
 	/**
 	 * 관리자단에서 재고정보 수정을 위해 재고정보를 상세조회한다.

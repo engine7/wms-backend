@@ -36,6 +36,8 @@ public interface InventoryService {
 	
 	public int insertInventoryMap(Map<String, Object> params) throws Exception;	/* (Map) */
 	
+	public int insertInventoryMapToast(List<Map<String, Object>> paramsList) throws Exception;	/* (Map) */
+	
 	public InventoryVO selectInventory(InventoryVO inventoryVO) throws Exception;
 	
 	public Map<String, Object> selectInventoryMap(Map<String, Object> params) throws Exception;	/* (Map) */

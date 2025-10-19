@@ -82,6 +82,22 @@ public class InventoryServiceImpl extends EgovAbstractServiceImpl implements Inv
 	}
 	
 	@Override
+	public int insertInventoryMapToast(List<Map<String, Object>> paramsList) throws Exception  {	/* (Map) */
+
+//		int result = inventoryDAO.insertInventoryMap(params);
+		
+		int result = paramsList.size();
+		
+		for (Map<String, Object> params : paramsList) {
+		
+			WmtCstStrg wmtCstStrg = wmtCstStrgService.insert(params);
+			
+		}
+		
+		return result;
+	}
+	
+	@Override
 	public InventoryVO selectInventory(InventoryVO inventoryVO) {
 		return inventoryDAO.selectInventory(inventoryVO);
 	}
