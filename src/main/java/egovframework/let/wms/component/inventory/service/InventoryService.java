@@ -28,7 +28,11 @@ public interface InventoryService {
 	
 	public List<Map<String, Object>> selectInventoryMapList(UserDefaultVO userSearchVO) throws Exception;
 	
+	public List<Map<String, Object>> selectInventoryMapToastList(Map<String, Object> params);
+	
 	public int selectInventoryListTotCnt(UserDefaultVO userSearchVO) throws Exception;
+	
+	public int selectInventoryMapToastListTotCnt(Map<String, Object> params);
 	
 	/* CRUD */
 	

@@ -62,8 +62,69 @@
 	    ORDER BY WH_CD, LOT_NO, CELL_NO DESC
 	    LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
    	</select>
+   	
+   	<select id="selectInventoryMapToastList" parameterType="map" resultType="map">
+		/* selectInventoryMapList */
+	
+	    SELECT 
+	        	WH_CD				
+				, LOT_NO            
+				, CELL_NO           
+				, INVN_QTY          
+				, AVLB_QTY          
+				, ALLOC_QTY         
+				, HLD_QTY           
+				, INS_USER_ID       
+				, INS_DATETIME      
+				, UPD_USER_ID       
+				, UPD_DATETIME      
+	      FROM	WMT_CST_STRG
+	     WHERE	1=1
+	    <if test="searchCondition == 0">AND
+	    	WH_CD LIKE CONCAT('%' , #{searchKeyword}, '%')
+	    </if>
+	    <if test="searchCondition == 1">AND
+	    	LOT_NO LIKE CONCAT('%' , #{searchKeyword}, '%')
+	    </if>
+	    <if test="searchCondition == 2">AND
+	    	CELL_NO LIKE CONCAT('%' , #{searchKeyword}, '%')
+	    </if>
+	    ORDER BY WH_CD, LOT_NO, CELL_NO DESC
+	    LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
+   	</select>
     	
    	<select id="selectInventoryListTotCnt" parameterType="userSearchVO" resultType="int">
+   		/* selectInventoryListTotCnt */
+   	
+        SELECT COUNT(1) totcnt
+        FROM	(
+	        		SELECT 
+				        	WH_CD				AS whCd		
+							, LOT_NO            AS lotNo      
+							, CELL_NO           AS cellNo     
+							, INVN_QTY          AS invnQty    
+							, AVLB_QTY          AS avlbQty    
+							, ALLOC_QTY         AS allocQty   
+							, HLD_QTY           AS hldQty     
+							, INS_USER_ID       AS insUserId  
+							, INS_DATETIME      AS insDatetime
+							, UPD_USER_ID       AS updUserId  
+							, UPD_DATETIME      AS updDatetime
+				    FROM    WMT_CST_STRG
+	    		) A
+        WHERE 1=1
+        <if test="searchCondition == 0">AND
+	    	whCd LIKE CONCAT('%' , #{searchKeyword}, '%')
+	    </if>
+	    <if test="searchCondition == 1">AND
+	    	lotNo LIKE CONCAT('%' , #{searchKeyword}, '%')
+	    </if>
+	    <if test="searchCondition == 2">AND
+	    	cellNo LIKE CONCAT('%' , #{searchKeyword}, '%')
+	    </if>
+    </select>
+    
+    <select id="selectInventoryMapToastListTotCnt" parameterType="map" resultType="int">
    		/* selectInventoryListTotCnt */
    	
         SELECT COUNT(1) totcnt

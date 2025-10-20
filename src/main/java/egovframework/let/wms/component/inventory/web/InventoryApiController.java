@@ -31,6 +31,9 @@ import egovframework.com.cmm.ResponseCode;
 import egovframework.com.cmm.service.EgovCmmUseService;
 import egovframework.com.cmm.service.ResultVO;
 import egovframework.com.jwt.EgovJwtTokenUtil;
+import egovframework.let.wms.component.common.PageDefaultMap;
+import egovframework.let.wms.component.common.PageResult;
+import egovframework.let.wms.component.common.PagingService;
 import egovframework.let.wms.component.inventory.service.InventoryService;
 import egovframework.let.wms.component.inventory.service.InventoryVO;
 import egovframework.let.uss.umt.service.UserDefaultVO;
@@ -91,6 +94,9 @@ public class InventoryApiController {
 	/** DefaultBeanValidator beanValidator */
 	@Autowired
 	private DefaultBeanValidator beanValidator;
+	
+	@Autowired
+	private PagingService pagingService;
 
 	/* LIST (COUNT) */
 	
@@ -233,6 +239,51 @@ public class InventoryApiController {
 
 		return resultVO;
 	}
+	
+	/**
+	 * 관리자단에서 재고목록을 조회한다. (pageing)
+	 * @param request
+	 * @return resultVO
+	 * @throws Exception
+	 */
+	@Operation(
+			summary = "관리자단에서 재고 목록조회화면 (맵)",
+			description = "관리자단에서 재고에 대한 목록을 조회",
+			security = {@SecurityRequirement(name = "Authorization")},
+			tags = {"InventoryMapApiController"}
+	)
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "조회 성공"),
+			@ApiResponse(responseCode = "403", description = "인가된 사용자가 아님")
+	})
+	@GetMapping(value = "/inventoryMapToast")
+	public ResultVO selectInventoryMapToastList(
+		      @Parameter(
+		            in = ParameterIn.QUERY,
+		            schema = @Schema(type = "object",
+		                  additionalProperties = Schema.AdditionalPropertiesValue.TRUE,
+		                  ref = "#/components/schemas/searchMap"),
+		            style = ParameterStyle.FORM,
+		            explode = Explode.TRUE
+		      ) @RequestParam Map<String, Object> commandMap,
+		      @Parameter(hidden = true) @AuthenticationPrincipal LoginVO user
+		) throws Exception {
+		
+			// commandMap 세팅 전 또는 후에 키 이름 변환
+			commandMap.put("searchCondition", commandMap.get("searchCnd"));
+			commandMap.put("searchKeyword", commandMap.get("searchWrd"));
+		
+		   PageDefaultMap pageMap = new PageDefaultMap(commandMap);
+
+		   PageResult<Map<String, Object>> pageResult = pagingService.getPagedResult(
+		         params -> inventoryService.selectInventoryMapToastList(params),
+		         params -> inventoryService.selectInventoryMapToastListTotCnt(params),
+		         pageMap
+		   );
+
+		   // 개선된 makePagedResultVO로 페이징+유저정보 리턴
+		   return pagingService.makePagedResultVO(pageResult, pageMap, user);
+		}
 
 	/* CUD (R) */
 	
