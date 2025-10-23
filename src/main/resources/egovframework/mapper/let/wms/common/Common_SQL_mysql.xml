@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dynamicSql">
+	
+	<select id="excute" parameterType="map" resultType="map">
+		${sql}
+		
+		<if test="searchCondition == 0">AND
+	    	WH_CD LIKE CONCAT(''%'' , #{searchKeyword}, ''%'')
+	    </if>
+	    <if test="searchCondition == 1">AND
+	    	LOT_NO LIKE CONCAT(''%'' , #{searchKeyword}, ''%'')
+	    </if>
+	    <if test="searchCondition == 2">AND
+	    	CELL_NO LIKE CONCAT(''%'' , #{searchKeyword}, ''%'')
+	    </if>
+	    
+	    ORDER BY WH_CD, LOT_NO, CELL_NO DESC
+	    
+	    LIMIT #{recordCountPerPage} OFFSET #{firstIndex}'
+		
+   	</select>
+   	
+</mapper>
