@@ -46,6 +46,9 @@ public class DynamicMyBatisRunner {
      */
     public List<Map<String, Object>> execute(String sqlText, Map<String, Object> params, String dbType) throws SQLException {
 
+        // 0️⃣ SQL 정규화 (여러 줄 SQL → 한 줄)
+        sqlText = normalizeSql(sqlText);
+
         // 1️⃣ 페이징 처리 (page, pageSize 감지)
         sqlText = applyPaging(sqlText, params, dbType);
 
@@ -131,5 +134,17 @@ public class DynamicMyBatisRunner {
             }
         }
         return sb.toString();
+    }
+
+    /** 여러 줄 SQL → 한 줄로 정규화 */
+    private String normalizeSql(String sql) {
+        if (sql == null) return null;
+        // 줄바꿈과 탭 제거
+        sql = sql.replaceAll("[\\r\\n\\t]+", " ");
+        // /* ... */ 주석 제거
+        sql = sql.replaceAll("/\\*.*?\\*/", " ");
+        // -- 주석 제거
+        sql = sql.replaceAll("--.*?(\\r?\\n|$)", " ");
+        return sql.trim();
     }
 }

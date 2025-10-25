@@ -15,7 +15,11 @@ VALUES
 select * from SQL_STORE;
 
 update SQL_STORE
-set SQL_TEXT = '<script>SELECT WH_CD, LOT_NO, CELL_NO, INVN_QTY, AVLB_QTY, ALLOC_QTY, HLD_QTY, INS_USER_ID, INS_DATETIME, UPD_USER_ID, UPD_DATETIME FROM WMT_CST_STRG <where> <if test="searchCondition == 0"> WH_CD LIKE CONCAT(''%'' , #{searchKeyword}, ''%'') </if> <if test="searchCondition == 1"> LOT_NO LIKE CONCAT(''%'' , #{searchKeyword}, ''%'') </if> <if test="searchCondition == 2"> CELL_NO LIKE CONCAT(''%'' , #{searchKeyword}, ''%'') </if> </where> ORDER BY WH_CD, LOT_NO, CELL_NO DESC LIMIT #{recordCountPerPage} OFFSET #{firstIndex}</script>'
+set SQL_TEXT = '<script>
+SELECT WH_CD, LOT_NO, CELL_NO, INVN_QTY, AVLB_QTY, ALLOC_QTY, HLD_QTY, INS_USER_ID, INS_DATETIME, UPD_USER_ID, UPD_DATETIME 
+FROM WMT_CST_STRG 
+<where> <if test="searchCondition == 0"> WH_CD LIKE CONCAT(''%'' , #{searchKeyword}, ''%'') </if> <if test="searchCondition == 1"> LOT_NO LIKE CONCAT(''%'' , #{searchKeyword}, ''%'') </if> <if test="searchCondition == 2"> CELL_NO LIKE CONCAT(''%'' , #{searchKeyword}, ''%'') </if> </where> ORDER BY WH_CD, LOT_NO, CELL_NO DESC LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
+</script>'
 where SQL_ID = 'selectInventoryMapToastList'
 ;
 
