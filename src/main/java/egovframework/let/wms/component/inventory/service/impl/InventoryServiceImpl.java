@@ -1,15 +1,21 @@
 package egovframework.let.wms.component.inventory.service.impl;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import egovframework.let.wms.component.common.DynamicMyBatisRunner;
+import egovframework.let.wms.component.common.SqlCache;
+import egovframework.let.wms.component.common.mapper.DynamicSQLMapper;
 import egovframework.let.wms.component.inventory.service.InventoryService;
 import egovframework.let.wms.component.inventory.service.InventoryVO;
 import egovframework.let.wms.component.inventory.service.UserDefaultVO;
@@ -42,6 +48,15 @@ public class InventoryServiceImpl extends EgovAbstractServiceImpl implements Inv
 	@Resource(name = "wmtCstStrgService")
     private WmtCstStrgService wmtCstStrgService;
 	
+	@Autowired
+	private DynamicMyBatisRunner dynamicMyBatisRunner;
+
+	@Autowired
+	private SqlSessionTemplate sqlSessionTemplate;
+	
+	@Autowired
+    private SqlCache sqlCache;
+	
 	private final ObjectMapper objectMapper = new ObjectMapper();
 	
 	/* LIST (COUNT) */
@@ -58,7 +73,21 @@ public class InventoryServiceImpl extends EgovAbstractServiceImpl implements Inv
 	
 	@Override
 	public List<Map<String, Object>> selectInventoryMapToastList(Map<String, Object> params) {
-		return inventoryDAO.selectInventoryMapToastList(params);
+//		return inventoryDAO.selectInventoryMapToastList(params);
+		
+		String sqlId = "selectInventoryMapToastList";
+		String sqlText = sqlCache.getSql(sqlId);
+		
+		List<Map<String, Object>> resultList = null;
+		
+		try {
+			resultList = dynamicMyBatisRunner.execute(sqlText, params, "mysql");
+		} catch (SQLException e) {
+			
+		}
+		
+		// Dynamic 실행
+	    return resultList;
 	}
 	
 	@Override

@@ -64,7 +64,7 @@
    	</select>
    	
    	<select id="selectInventoryMapToastList" parameterType="map" resultType="map">
-		/* selectInventoryMapList */
+		/* selectInventoryMapToastList */
 	
 	    SELECT 
 	        	WH_CD				
@@ -247,6 +247,10 @@
            AND	LOT_NO = #{lotNo}     
            AND	CELL_NO = #{cellNo}
     
+    </select>
+    
+    <select id="executeDynamicSQL" parameterType="map" resultType="map">
+        ${sql}
     </select>
     
 </mapper>
