@@ -147,4 +147,38 @@ public class DynamicMyBatisRunner {
         sql = sql.replaceAll("--.*?(\\r?\\n|$)", " ");
         return sql.trim();
     }
+    
+    /**
+     * INSERT / UPDATE / DELETE 실행용 (DDL은 제외)
+     */
+    public int executeUpdate(String sqlText, Map<String, Object> params) throws SQLException {
+        // SQL 정규화
+        sqlText = normalizeSql(sqlText);
+
+        // MyBatis XML 파서로 <script> 처리
+        XMLLanguageDriver langDriver = new XMLLanguageDriver();
+        Object sqlSourceObj = langDriver.createSqlSource(configuration, sqlText, Map.class);
+
+        BoundSql boundSql;
+        if (sqlSourceObj instanceof DynamicSqlSource) {
+            boundSql = ((DynamicSqlSource) sqlSourceObj).getBoundSql(params);
+        } else {
+            // RawSqlSource 처리
+            boundSql = ((org.apache.ibatis.scripting.defaults.RawSqlSource) sqlSourceObj).getBoundSql(params);
+        }
+
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement(boundSql.getSql())) {
+
+            // 파라미터 바인딩
+            int index = 1;
+            for (ParameterMapping pm : boundSql.getParameterMappings()) {
+                String property = pm.getProperty();
+                Object value = params.get(property);
+                ps.setObject(index++, value);
+            }
+
+            return ps.executeUpdate();
+        }
+    }
 }

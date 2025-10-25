@@ -131,7 +131,14 @@ public class InventoryServiceImpl extends EgovAbstractServiceImpl implements Inv
 		
 			String status = String.valueOf(params.get("status"));
 			
-			if ("I".equals(status) || "U".equals(status)) {
+			if ("I".equals(status)) {
+//				WmtCstStrg wmtCstStrg = wmtCstStrgService.insert(params);
+				
+				// Dynamic Sql
+				String sqlId = "insertInventoryMapToast";
+				String sqlText = sqlCache.getSql(sqlId);
+				int affectedRows = dynamicMyBatisRunner.executeUpdate(sqlText, params);
+			} else if ("U".equals(status)) {
 				WmtCstStrg wmtCstStrg = wmtCstStrgService.insert(params);
 			} else if ("D".equals(status)) {
 				wmtCstStrgService.delete(params);
